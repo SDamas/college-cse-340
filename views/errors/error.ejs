@@ -1,7 +1,8 @@
-<% if (title) { %>
-  <h1><%= title %></h1>
-  <% } else {
-    res.redirect('/')
-  } %>
-
-<%- message %>
+<div id="error-and-404">
+  <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+  <%- message %>
+</div>

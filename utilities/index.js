@@ -28,7 +28,7 @@ Util.getNav = async function (req, res, next) {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildClassificationGrid = async function(data){
+Util.buildClassificationGrid = async function (data){
   let grid
   if(data.length > 0){
     grid = '<ul id="inv-display">'
@@ -56,6 +56,28 @@ Util.buildClassificationGrid = async function(data){
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}
+
+
+Util.buildVechicleDetails = async function (vehicle) {
+  const details = `
+    <div id="vehicle-details">
+      <picture>
+        <img src=${vehicle.inv_image} alt=${vehicle.inv_make} ${vehicle.inv_model} thumbnail."/>  
+      </picture>
+      <section id="details">
+        <h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>
+        <div id="milesAndPrice">
+          <div id="price">$ ${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</div>
+          <div>${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</div>
+        </div>
+        <p>Color: ${vehicle.inv_color}</p>
+        <p id="description">${vehicle.inv_description}</p>
+        <div>
+      </section>
+    </div>
+  `
+  return details
 }
 
 

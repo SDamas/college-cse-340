@@ -179,18 +179,13 @@ nav ul {
   bottom: 0;
 }
 
-footer {
-  margin-top: 2rem;
-  padding: 1.5rem 1rem;
-}
-
 /********** Inventory *************/
 #inv-display {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.125rem;
+  gap: 2rem;
 }
 
 #inv-display li {
@@ -222,4 +217,72 @@ footer {
 
 #inv-display li .namePrice h2 a, #inv-display li .namePrice span {
   color: black;
+}
+
+
+/********** Vehicle Details *************/
+#vehicle-details {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  #vehicle-details {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+#vehicle-details picture {
+  max-width: 500px;
+}
+
+#vehicle-details picture img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+#vehicle-details #milesAndPrice {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 1rem 0;
+  gap: 2rem;
+}
+
+#vehicle-details #milesAndPrice #price {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#vehicle-details #details p {
+  margin-bottom: 1rem;
+}
+
+#vehicle-details #details #description {
+  max-width: 350px;
+  width: 100%;
+  line-height: 1.5rem;
+}
+
+
+/********** Footer *************/
+footer {
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+}
+
+
+/********** Error and 404 style *************/
+#error-and-404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 60vh;
+  width: 100%;
+  padding: 1rem 2rem;
 }
