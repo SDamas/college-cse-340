@@ -290,3 +290,104 @@ footer {
   width: 100%;
   padding: 1rem 2rem;
 }
+
+
+/********** Login/Registration Form *************/
+#login-registration-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+#login-registration-form-container.registration {
+  height: fit-content;
+  margin-top: 6rem;
+}
+
+#login-registration-form {
+  max-width: 320px;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+#login-registration-form h1 {
+  margin-bottom: 1.2rem;
+}
+
+#login-registration-form #all-fields-required {
+  padding-bottom: 2rem;
+}
+
+#login-registration-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.125rem;
+}
+
+.form-field input {
+  height: 2.125rem;
+}
+
+.form-field #password-must-contain {
+  font-size: 12px;
+  margin-bottom: 1rem;
+  color: #535353;
+}
+
+#password-must-contain ul {
+  margin-left: 1rem;
+}
+
+#show-password {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+#login-registration-form #login-btn, #register-btn {
+  padding: .75rem 2rem;
+  background: black;
+  color: white;
+  margin-bottom: 2rem;
+  display: block;
+  width: fit-content;
+  cursor: pointer;
+  display: block;
+  border: none;
+  font-size: 16px;
+}
+
+#login-registration-form #sign-up {
+  cursor: pointer;
+}
+
+#login-registration-form .required:after {
+  content: "*";
+  margin-left: .2rem;
+}
+
+.notice {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  background-color: lightpink;
+  color: darkred;
+  line-height: 1.5;
+  padding: .5rem;
+}
+
+#messages .notice {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  background-color: lightblue;
+  color: darkcyan;
+  line-height: 1.5;
+  padding: .5rem;
+}
+
+input:required:invalid, input:focus:invalid {
+}
+
+input:required:valid {
+}

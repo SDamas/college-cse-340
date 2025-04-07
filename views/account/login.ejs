@@ -1,0 +1,21 @@
+<section id="login-registration-form-container">
+  <form name="loginForm" id="login-registration-form">
+    <% if (title) { %>
+      <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+    <!-- Successful or fail message of account registration -->
+    <%- messages() %>
+    <div class="form-field">
+      <label for="account_email">Email</label>
+      <input name="account_email" id="account_email" type="email" required>
+    </div>
+    <div class="form-field">
+      <label for="account_password">Password</label>
+      <input name="account_password" id="account_password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+    </div>
+    <button type="submit" id="login-btn">Login</button>
+    <p>No account? <span id="sign-up"><a href="/account/registration"><u>Sign-up</u></a></span></p>
+  </form>
+</section>
