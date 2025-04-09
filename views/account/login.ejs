@@ -1,5 +1,5 @@
 <section id="login-registration-form-container">
-  <form name="loginForm" id="login-registration-form">
+  <form name="loginForm" id="login-registration-form" action="/account/login" method="post">
     <% if (title) { %>
       <h1><%= title %></h1>
     <% } else {
@@ -7,9 +7,18 @@
     } %>
     <!-- Successful or fail message of account registration -->
     <%- messages() %>
+    
+    <% if (errors) { %>
+      <ul class="notice">
+     <% errors.array().forEach(error => { %>
+       <li><%= error.msg %></li>
+    <%  }) %>
+     </ul>
+    <% } %>
+
     <div class="form-field">
       <label for="account_email">Email</label>
-      <input name="account_email" id="account_email" type="email" required>
+      <input name="account_email" id="account_email" type="email" required value="<%= locals.account_email %>">
     </div>
     <div class="form-field">
       <label for="account_password">Password</label>

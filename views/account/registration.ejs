@@ -20,15 +20,15 @@
 
     <div class="form-field">
       <label for="account_firstname" class="required">First Name</label>
-      <input name="account_firstname" id="account_firstname" type="text" required>
+      <input name="account_firstname" id="account_firstname" type="text" required value="<%= locals.account_firstname %>">
     </div>
     <div class="form-field">
       <label for="account_lastname" class="required">Last Name</label>
-      <input name="account_lastname" id="account_lastname" type="text" required>
+      <input name="account_lastname" id="account_lastname" type="text" required value="<%= locals.account_lastname %>">
     </div>
     <div class="form-field">
       <label for="account_email" class="required">Email</label>
-      <input name="account_email" id="account_email" type="email" required>
+      <input name="account_email" id="account_email" type="email" required value="<%= locals.account_email %>">
     </div>
     <div class="form-field">
       <label for="account_password" class="required">Password</label>
