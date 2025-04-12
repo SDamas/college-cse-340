@@ -1,5 +1,5 @@
 <section id="add-classification-inventory-container">
-  <form action="/inv/add-inventory" method="post" style="margin-top: 2rem">
+  <form action="/inv/update" id="updateForm" method="post" style="margin-top: 2rem">
     <% if (title) { %>
       <h1><%= title %></h1>
     <% } else {
@@ -12,7 +12,7 @@
     </div>
     <div class="form-field">
       <label for="inv_classification">Classification</label>
-      <%- classificationList %>
+      <%- classificationSelect %>
     </div>
     <div class="form-field">
       <label for="inv_model">Model</label>
@@ -24,15 +24,15 @@
     </div>
     <div class="form-field">
       <label for="inv_description">Description</label>
-      <textarea name="inv_description" id="inv_description" type="text" value="<%= locals.inv_description %>" required></textarea>
+      <textarea name="inv_description" id="inv_description" type="text" required><%= locals.inv_description %></textarea>
     </div>
     <div class="form-field">
       <label for="inv_image">Image</label>
-      <input name="inv_image" id="inv_image" type="text" value="/images/vehicles/no-image.png" required>
+      <input name="inv_image" id="inv_image" type="text" value="<%= inv_image %>" required>
     </div>
     <div class="form-field">
       <label for="inv_thumbnail">Thumbnail</label>
-      <input name="inv_thumbnail" id="inv_thumbnail" type="text" value="/images/vehicles/no-image-tn.png" required>
+      <input name="inv_thumbnail" id="inv_thumbnail" type="text" value="<%= inv_thumbnail %>" required>
     </div>
     <div class="form-field">
       <label for="inv_price">Price $</label>
@@ -46,10 +46,12 @@
       <label for="inv_color">color</label>
       <input name="inv_color" id="inv_color" type="text" value="<%= locals.inv_color %>" required>
     </div>
-    <input type="submit" value="Add"></input>
+    <input type="submit" value="Update Vehicle" disabled="true">
+
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
   </form>
 </section>
 
-<script>
-  
-</script>
+<script src="/js/inv-update.js"></script>

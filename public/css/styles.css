@@ -421,6 +421,20 @@ input:required:valid {
   font-size: 16px;
 }
 
+#management-container h2 {
+  margin-top: 2rem;
+}
+
+#classificationList {
+  margin: 1rem 0;
+}
+
+#inventoryDisplay thead {
+  text-align: left;
+  background:black;
+  color: white;
+}
+
 /********** Add Classification *************/
 #add-classification-inventory-container {
   display: flex;
