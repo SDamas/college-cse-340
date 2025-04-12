@@ -1,0 +1,63 @@
+<section id="add-classification-inventory-container">
+  <form action="/inv/add-inventory" method="post" style="margin-top: 2rem">
+    <% if (title) { %>
+      <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+    <div class="form-field">
+      <label for="inv_make">Make</label>
+      <input name="inv_make" id="inv_make" type="text" value="<%= locals.inv_make %>" required>
+    </div>
+    <div class="form-field">
+      <label for="inv_classification">Classification</label>
+      <%- classificationList %>
+    </div>
+    <div class="form-field">
+      <label for="inv_model">Model</label>
+      <input name="inv_model" id="inv_model" type="text" value="<%= locals.inv_model %>" required>
+    </div>
+    <div class="form-field">
+      <label for="">Year</label>
+      <input name="inv_year" id="inv_year" type="number" value="<%= locals.inv_year %>" required>
+    </div>
+    <div class="form-field">
+      <label for="inv_description">Description</label>
+      <textarea name="inv_description" id="inv_description" type="text" value="<%= locals.inv_description %>" required></textarea>
+    </div>
+    <div class="form-field">
+      <label for="inv_image">Image</label>
+      <input name="inv_image" id="inv_image" type="text" value="/images/vehicles/no-image.png" required>
+    </div>
+    <div class="form-field">
+      <label for="inv_thumbnail">Thumbnail</label>
+      <input name="inv_thumbnail" id="inv_thumbnail" type="text" value="/images/vehicles/no-image-tn.png" required>
+    </div>
+    <div class="form-field">
+      <label for="inv_price">Price $</label>
+      <input name="inv_price" id="inv_price" type="number" value="<%= locals.inv_price %>" required onblur="(() => {
+        let priceInput = document.querySelector('#inv_price');
+        let formattedPrice = new Intl.NumberFormat('en-US').format(parseFloat(priceInput.value));
+        priceInput.value = formattedPrice
+      })()">
+    </div>
+    <div class="form-field">
+      <label for="inv_miles">Miles</label>
+      <input name="inv_miles" id="inv_miles" type="number" value="<%= locals.inv_miles %>" required onblur="(() => {
+        let miles = document.querySelector('#inv_miles')
+        const formattedMiles = new Intl.NumberFormat('en-US').format(parseFloat(miles.value))
+        miles.value = formattedMiles
+      })()">
+    </div>
+    <div class="form-field">
+      <label for="inv_color">color</label>
+      <input name="inv_color" id="inv_color" type="text" value="<%= locals.inv_color %>" required>
+    </div>
+    <input type="submit" value="Add"></input>
+  </form>
+</section>
+
+<script>
+  
+</script>

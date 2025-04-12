@@ -1,0 +1,17 @@
+<section id="add-classification-inventory-container">
+  <form action="/inv/add-classification" method="post">
+    <% if (title) { %>
+      <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+    <div class="form-field">
+      <div id="password-must-contain">
+        <p>Cannot contain space or special character of any kind.</p>
+      </div>
+      <input name="classification_name" id="classification-name" type="text" required>
+    </div>
+    <input type="submit" value="Add"></input>
+  </form>
+</section>
