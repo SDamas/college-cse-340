@@ -146,4 +146,13 @@ Util.checkLogin = (req, res, next) => {
   }
  }
 
+ Util.checkAccountType = (req, res, next) => {
+  if (res.locals.loggedin && (res.locals.accountData.account_type == "Employee" || res.locals.accountData.account_type == "Admin") || (res.locals.loggedin && (req.originalUrl == "/account/update" || req.originalUrl == "/account/update/password"))) {
+    next()
+  } else {
+    req.flash("notice", "You don't have access to this resource, or you need to log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
 module.exports = Util

@@ -137,4 +137,78 @@ validate.checkLogData = async (req, res, next) => {
   next()
 }
 
+validate.accountUpdateRules = () => {
+  return [
+    body("account_firstname")
+    .trim()
+    .notEmpty()
+    .escape()
+    .withMessage("Pleave provide a first name."),
+
+    body("account_lastname")
+    .trim()
+    .notEmpty()
+    .escape()
+    .withMessage("Please provide a last name."),
+
+    body("account_email")
+    .trim()
+    .normalizeEmail()
+    .notEmpty()
+    .custom(async () => {
+      const emailExistsForOtherUser = await accountModel.checkEmailExistsForOtherUser(body("account_id"))
+      if (emailExistsForOtherUser){
+        throw new Error("The e-mail entered is already in use. Please use a different email.")
+      }
+    })
+    .withMessage("Please provide a valid e-mail.")
+  ]
+}
+
+validate.checkAccountUpdate = async(req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/management", {
+      errors,
+      title: "Account Management",
+      nav,
+    })
+    return
+  }
+  next()
+}
+
+validate.changePasswordRules = () => {
+  return [
+    body("account_password")
+    .trim()
+    .notEmpty()
+    .isStrongPassword({
+      minLength: 12,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+    .withMessage("Password does not meet the minimum requirements.")
+  ]
+}
+
+validate.checkChangePassword = async(req, res, next) => {
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/management", {
+      errors,
+      title: "Account Management",
+      nav,
+    })
+    return
+  }
+  next()
+}
+
 module.exports = validate

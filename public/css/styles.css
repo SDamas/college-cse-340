@@ -391,7 +391,59 @@ footer {
 input:required:valid {
 } */
 
-/********** Management *************/
+/********** Account Management *************/
+#account-management-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+#account-management-container #welcome-message {
+  margin-top: .5rem;
+}
+
+#account-management-container .action {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/********** Update Account *************/
+#update-account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  padding: 3rem 1rem;
+}
+
+#action-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+#action-forms h2 {
+  margin-bottom: 1rem;
+}
+
+#update-account-container input[type=submit] {
+  padding: .75rem 2rem;
+  background: black;
+  color: white;
+  display: block;
+  width: fit-content;
+  cursor: pointer;
+  display: block;
+  border: none;
+  font-size: 16px;
+  margin-top: 1.5rem;
+}
+
+/********** Website Management *************/
 #management-container {
   display: flex;
   flex-direction: column;
