@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const invModel = require("../models/inventoryModel")
+const accountModel = require("../models/accountModel")
 const Util = {}
 
 /* ************************
@@ -147,12 +148,27 @@ Util.checkLogin = (req, res, next) => {
  }
 
  Util.checkAccountType = (req, res, next) => {
-  if (res.locals.loggedin && (res.locals.accountData.account_type == "Employee" || res.locals.accountData.account_type == "Admin") || (res.locals.loggedin && (req.originalUrl == "/account/update" || req.originalUrl == "/account/update/password"))) {
+  if (res.locals.loggedin && (res.locals.accountData.account_type == "Employee" || res.locals.accountData.account_type == "Admin") || (res.locals.loggedin && req.originalUrl.includes('/account'))) {
     next()
   } else {
     req.flash("notice", "You don't have access to this resource, or you need to log in.")
     return res.redirect("/account/login")
   }
  }
+
+Util.getPreferredContactMethodOptions = async(req, res, next) => {
+  try {
+    const data = await accountModel.getPreferredContactMethods()
+    console.log(data)
+    let html
+    data.forEach((item) => {
+      html += `<option value=${item.preferred_contact_method}>${item.preferred_contact_method}</option>`
+    })
+
+    return html
+  } catch(error) {
+    console.log("getPreferredContactMethodOptions Error: " + error)
+  }
+}
 
 module.exports = Util

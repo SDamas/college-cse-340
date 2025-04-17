@@ -29,6 +29,53 @@ async function buildRegistration(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver dealer profile view: enhancement
+* *************************************** */
+async function buildDealerProfile(req, res, next) {
+  const nav = await utilities.getNav()
+  const { account_id, contact, additional_comments } = await accountModel.getDealerProfile(res.locals.accountData.account_id)
+  res.render("account/dealer-profile", {
+    title: "Dealer Profile",
+    nav,
+    account_id,
+    contact,
+    additional_comments,
+    errors: null
+  })
+}
+
+/* ****************************************
+*  Process dealer profile update: enhancement
+* *************************************** */
+async function updateDealerProfile(req, res, next) {
+  const nav = await utilities.getNav()
+  let { account_id, contact, additional_comments } = req.body
+  const updatedProfile = await accountModel.updateDealerProfile(parseInt(account_id), contact, additional_comments)
+  
+  if (updatedProfile) {
+    req.flash(
+      "notice",
+      `Dealer profile updated successfully.`
+    )
+    res.status(201).render("account/dealer-profile", {
+      title: "Dealer Profile",
+      nav,
+      account_id: updatedProfile.account_id,
+      contact: updatedProfile.contact,
+      additional_comments: updatedProfile.additional_comments,
+      errors: null
+    })
+  } else {
+    req.flash("notice", "Sorry, the profile update failed.")
+    res.status(501).render("account/dealer-profile", {
+      title: "Dealer Profile",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+/* ****************************************
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
@@ -55,8 +102,6 @@ async function registerAccount(req, res) {
     account_email,
     hashedPassword
   )
-
-  console.log(regResult)
 
   if (regResult) {
     req.flash(
@@ -164,8 +209,8 @@ async function buildAccountManagement(req, res, next) {
 
 // Process logout
 async function logoutUser(req, res, next) {
-  const nav = await utilities.getNav()
   res.clearCookie("jwt")
+  const nav = await utilities.getNav()
   res.status(200).render("index", {
     title: "Home",
     nav,
@@ -239,4 +284,4 @@ async function updatePassword(req, res, next) {
   }
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, loginAccount, accountLogin, logoutUser, buildAccountManagement, updateView, updateAccount, updatePassword }
+module.exports = { buildLogin, buildRegistration, registerAccount, buildDealerProfile, updateDealerProfile, loginAccount, accountLogin, logoutUser, buildAccountManagement, updateView, updateAccount, updatePassword }

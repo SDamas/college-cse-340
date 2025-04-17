@@ -345,7 +345,7 @@ footer {
   gap: .5rem;
 }
 
-#login-registration-form #login-btn, #register-btn {
+#login-registration-form #login-btn, #register-btn, #update-profile-btn {
   padding: .75rem 2rem;
   background: black;
   color: white;
@@ -511,4 +511,23 @@ input:required:valid {
   border: none;
   font-size: 16px;
   margin-top: 1.5rem;
+}
+
+/***************** Account Profile *****************/
+#account-profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 4rem 1rem;
+  flex-direction: column;
+}
+
+#account-profile-container h1 {
+  margin-bottom: 1rem;
+}
+
+#account-profile-container form {
+  margin-top: 1.5rem;
+  text-align: center;
 }

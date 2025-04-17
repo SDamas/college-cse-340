@@ -137,13 +137,46 @@ validate.checkLogData = async (req, res, next) => {
   next()
 }
 
+// Enhancement
+validate.dealerProfileUpdateRules = () => {
+  return [
+    body("contact")
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a valid contact."),
+ 
+    body("additional_comments")
+    .trim()
+    .escape()
+  ]
+}
+
+// Enhancement
+validate.checkDealerProfileData = async (req, res, next) => {
+  const { contact, additional_comments } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/dealer-profile", {
+      errors,
+      title: "Dealer Profile",
+      nav,
+      contact,
+      additional_comments
+    })
+    return
+  }
+  next()
+}
+
 validate.accountUpdateRules = () => {
   return [
     body("account_firstname")
     .trim()
     .notEmpty()
     .escape()
-    .withMessage("Pleave provide a first name."),
+    .withMessage("Please provide a first name."),
 
     body("account_lastname")
     .trim()

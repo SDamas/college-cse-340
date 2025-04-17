@@ -6,9 +6,65 @@ const pool = require("../database/")
 async function registerAccount(account_firstname, account_lastname, account_email, account_password){
   try {
     const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
-    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
+    const userRegistered = await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
+    const accountId = userRegistered.rows[0].account_id
+    
+    // Enhancement
+    await createDealerProfile(accountId)
+
+    return accountId
   } catch (error) {
     return error.message
+  }
+}
+
+/* *****************************
+*   Create dealer profile: enhancement
+* *************************** */
+async function createDealerProfile(account_id) {
+  try {
+    const dealerProfileCreated = await pool.query(`
+      INSERT INTO profile (dealer_id)
+      VALUES ($1)
+      `, [account_id])
+  
+    if (dealerProfileCreated.rowCount) {
+      console.log(`Dealer profile created for account id ${account_id}`)
+    }
+  } catch (error) {
+    console.log(`createDealerProfile Error: ${error}`)
+  }
+}
+
+// Enhancement
+async function getDealerProfile(account_id) {
+  try {
+    const dealerProfile = await pool.query(`
+        SELECT * FROM profile
+        WHERE account_id = $1
+      `, [account_id])
+    
+    return dealerProfile.rows[0]
+  } catch(error) {
+    console.log("getDealerProfile Error: " + error)
+  }
+}
+
+/* *****************************
+*   Update profile: enhancement
+* *************************** */
+async function updateDealerProfile(account_id, contact, additional_comments) {
+  try {
+    const updatedProfile = await pool.query(`
+        UPDATE profile
+        SET contact = $2, additional_comments = $3
+        WHERE account_id = $1
+        RETURNING *
+      `, [account_id, contact, additional_comments])
+    
+    return updatedProfile.rows[0]
+  } catch(error) {
+    console.log("getDealerProfile Error: " + error)
   }
 }
 
@@ -111,4 +167,4 @@ async function updatePassword(account_id, account_password) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, checkEmailExistsForOtherUser, getAccount, getAccountByEmail, getAccountById, updateAccount, updatePassword }
+module.exports = { registerAccount, checkExistingEmail, checkEmailExistsForOtherUser, getAccount, getDealerProfile, updateDealerProfile, getAccountByEmail, getAccountById, updateAccount, updatePassword }

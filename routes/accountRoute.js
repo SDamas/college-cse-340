@@ -7,6 +7,8 @@ const accValidate = require('../utilities/account-validation')
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 // Build the registration view
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration))
+// Dealer Profile: enhancement
+router.get("/dealer-profile", utilities.checkJWTToken, utilities.handleErrors(accountController.buildDealerProfile))
 // Account management
 router.get("/", utilities.checkJWTToken, utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement))
 // Update account
@@ -28,6 +30,18 @@ router.post(
   accValidate.checkLogData,
   utilities.handleErrors(accountController.accountLogin)
 )
+
+// Enhancement
+// Process dealer profile update
+router.post(
+  "/dealer-profile",
+  utilities.checkAccountType,
+  accValidate.dealerProfileUpdateRules(),
+  accValidate.checkDealerProfileData,
+  utilities.checkJWTToken,
+  utilities.handleErrors(accountController.updateDealerProfile)
+)
+
 // Process account update
 router.post(
   "/update",
